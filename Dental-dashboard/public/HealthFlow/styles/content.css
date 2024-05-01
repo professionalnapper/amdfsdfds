@@ -1,0 +1,99 @@
+.family {
+    height: 458px;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    border-bottom-style: solid;
+    border-bottom-color: #265316;
+    border-bottom-width: 1px;
+}
+.content-frame {
+    padding-left: 812px;
+    padding-top: 90px;
+    padding-right: 153px;
+    justify-content: center;
+    align-items: center ;
+    width: 1000px;
+}
+
+body {
+    height: 1777px;
+}
+
+.dedicated {
+    color: var(--Green-Text, #265316);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Serif;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 700;
+    width: 700px;
+    padding-left: 80px;
+}
+
+.content-text {
+    padding-top: 130px;
+    padding-right: 10px;
+}
+
+.description {
+    font-family: Lexend;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 35px;
+    width: 680px;
+    padding-left: 80px;
+}
+
+.patient-icon {
+    width: 250px;
+    border-style: solid;
+    border: green;
+}
+
+.doctor-icon {
+    width: 250px;
+    border-style: solid;
+    border: green;
+}
+
+.admin-icon {
+    width: 250px;
+}
+
+.button-preview {
+    display: inline-block;
+}
+
+.button-info-grid {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+}
+
+.button-title {
+    margin-top: 0;
+    align-items: end;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    margin-bottom: 12px;
+}
+
+.button-description {
+    margin-bottom: 4px;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 16px;
+    row-gap: 20px;
+    padding-top: 100px;
+    justify-content: center;
+    align-items: center;
+    padding-left: 100px;
+    padding-right: 100px;
+}

@@ -1,0 +1,43 @@
+.header {
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    background-color: #D9F2D0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #c1f0a9;
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+}
+
+.hamburger-menu {
+    height: 24px;
+    margin-left: 30px;
+    margin-right: 5px;
+}
+
+.healthflow-logo {
+    height: 200px;
+    padding-top: 5px;
+    padding-left: 24px;
+}
+
+.right-section {
+    font-family: Lexend, Arial;
+    font-size: 18px;
+    width: 250px;
+    margin-right: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
