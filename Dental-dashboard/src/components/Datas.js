@@ -39,11 +39,6 @@ export const MenuDatas = [
     icon: TbUsers,
   },
   {
-    title: 'Receptions',
-    path: '/receptions',
-    icon: HiOutlineUsers,
-  },
-  {
     title: 'Doctors',
     path: '/doctors',
     icon: RiUserHeartLine,
