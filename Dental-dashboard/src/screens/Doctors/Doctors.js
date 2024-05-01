@@ -5,7 +5,6 @@ import { BiPlus } from 'react-icons/bi';
 import Layout from '../../Layout';
 import { Button } from '../../components/Form';
 import { DoctorsTable } from '../../components/Tables';
-import { doctorsData } from '../../components/Datas';
 import { useNavigate } from 'react-router-dom';
 
 function Doctors() {
@@ -58,15 +57,7 @@ function Doctors() {
             }}
           />
         </div>
-        <div className="mt-8 w-full overflow-x-scroll">
-          <DoctorsTable
-            doctor={true}
-            data={doctorsData}
-            functions={{
-              preview: preview,
-            }}
-          />
-        </div>
+        
       </div>
     </Layout>
   );
