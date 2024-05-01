@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Uploder from '../Uploader';
 import { sortsDatas } from '../Datas';
 import { Button, DatePickerComp, Input, Select } from '../Form';
@@ -6,20 +6,61 @@ import { BiChevronDown } from 'react-icons/bi';
 import { toast } from 'react-hot-toast';
 import { HiOutlineCheckCircle } from 'react-icons/hi';
 import { RiDeleteBin5Line } from 'react-icons/ri';
+import { db, collection, addDoc } from '../lib/firebase-config';
 
 function PersonalInfo({ titles }) {
-  const [title, setTitle] = React.useState(sortsDatas.title[0]);
-  const [date, setDate] = React.useState(new Date());
-  const [gender, setGender] = React.useState(sortsDatas.genderFilter[0]);
+  const [title, setTitle] = useState(sortsDatas.title[0]);
+  const [date, setDate] = useState(new Date());
+  const [gender, setGender] = useState(sortsDatas.genderFilter[0]);
+  const [formData, setFormData] = useState({
+    fullName: '',
+    phoneNumber: '',
+    email: '',
+    emergencyContact: '',
+    address: ''
+  });
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handleDeleteAccount = () => {
     // Implement delete account functionality here
     toast.error('Deleting account is not available yet');
   };
 
-  const handleSaveChanges = () => {
-    // Implement save changes functionality here
-    toast.success('Changes saved successfully');
+  const handleSaveChanges = async () => {
+    try {
+      // Add patient information to Firestore
+      const docRef = await addDoc(collection(db, 'Patients'), {
+        title: title.name,
+        dateOfBirth: date,
+        gender: gender.name,
+        ...formData // Spread formData object to include fullName, phoneNumber, email, emergencyContact, address
+      });
+      console.log('Document written with ID: ', docRef.id);
+      toast.success('Changes saved successfully');
+      setShowSuccessMessage(true);
+    } catch (error) {
+      console.error('Error saving changes:', error);
+      toast.error('An unexpected error occurred');
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleConfirmSuccess = () => {
+    setFormData({
+      fullName: '',
+      phoneNumber: '',
+      email: '',
+      emergencyContact: '',
+      address: ''
+    });
+    setShowSuccessMessage(false);
   };
 
   return (
@@ -29,7 +70,7 @@ function PersonalInfo({ titles }) {
         <p className="text-sm">Profile Image</p>
         <Uploder />
       </div>
-      {/* select  */}
+      {/* select */}
       {titles && (
         <div className="flex w-full flex-col gap-3">
           <p className="text-black text-sm">Title</p>
@@ -46,11 +87,32 @@ function PersonalInfo({ titles }) {
       )}
 
       {/* fullName */}
-      <Input label="Full Name" color={true} type="text" />
+      <Input
+        label="Full Name"
+        color={true}
+        type="text"
+        name="fullName"
+        value={formData.fullName}
+        onChange={handleChange}
+      />
       {/* phone */}
-      <Input label="Phone Number" color={true} type="number" />
+      <Input
+        label="Phone Number"
+        color={true}
+        type="number"
+        name="phoneNumber"
+        value={formData.phoneNumber}
+        onChange={handleChange}
+      />
       {/* email */}
-      <Input label="Email" color={true} type="email" />
+      <Input
+        label="Email"
+        color={true}
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+      />
       {!titles && (
         <>
           {/* gender */}
@@ -67,7 +129,14 @@ function PersonalInfo({ titles }) {
             </Select>
           </div>
           {/* emergency contact */}
-          <Input label="Emergency Contact" color={true} type="number" />
+          <Input
+            label="Emergency Contact"
+            color={true}
+            type="number"
+            name="emergencyContact"
+            value={formData.emergencyContact}
+            onChange={handleChange}
+          />
           {/* date */}
           <DatePickerComp
             label="Date of Birth"
@@ -75,7 +144,14 @@ function PersonalInfo({ titles }) {
             onChange={(date) => setDate(date)}
           />
           {/* address */}
-          <Input label="Address" color={true} type="text" />
+          <Input
+            label="Address"
+            color={true}
+            type="text"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+          />
         </>
       )}
       {/* submit */}
@@ -91,6 +167,14 @@ function PersonalInfo({ titles }) {
           onClick={handleSaveChanges}
         />
       </div>
+      {showSuccessMessage && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-8 rounded-lg">
+            <p className="mb-4">Changes saved successfully!</p>
+            <Button label="Confirm" onClick={handleConfirmSuccess} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
