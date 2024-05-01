@@ -18,7 +18,6 @@ import PatientProfile from './screens/Patients/PatientProfile';
 import CreatePatient from './screens/Patients/CreatePatient';
 import Doctors from './screens/Doctors/Doctors';
 import DoctorProfile from './screens/Doctors/DoctorProfile';
-import Receptions from './screens/Receptions';
 import NewMedicalRecode from './screens/Patients/NewMedicalRecode';
 import NotFound from './screens/NotFound';
 import Login from './screens/Login';
@@ -52,8 +51,6 @@ function App() {
           {/* doctors */}
           <Route path="/doctors" element={<Doctors />} />
           <Route path="/doctors/preview/:id" element={<DoctorProfile />} />
-          {/* reception */}
-          <Route path="/receptions" element={<Receptions />} />
           {/* others */}
           <Route path="/login" element={<Login />} />
           <Route path="/appointments" element={<Appointments />} />
