@@ -211,12 +211,11 @@ export function ServiceTable({ data, onEdit }) {
     <table className="table-auto w-full">
       <thead className="bg-dry rounded-md overflow-hidden">
         <tr>
-          <th className={thclass}>Name</th>
+          <th className={thclass}>Services</th>
           <th className={thclass}>Date Created</th>
           <th className={thclass}>
             Price <span className="text-xs font-light">(Php)</span>
           </th>
-          <th className={thclass}>Status</th>
           <th className={thclass}>Actions</th>
         </tr>
       </thead>
@@ -231,15 +230,6 @@ export function ServiceTable({ data, onEdit }) {
             </td>
             <td className={tdclass}>{item?.date}</td>
             <td className={`${tdclass} font-semibold`}>{item?.price}</td>
-            <td className={tdclass}>
-              <span
-                className={`text-xs font-medium ${
-                  !item?.status ? 'text-red-600' : 'text-green-600'
-                }`}
-              >
-                {!item?.status ? 'Disabled' : 'Enabled'}
-              </span>
-            </td>
             <td className={tdclass}>
               <MenuSelect datas={DropDown1} item={item}>
                 <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
