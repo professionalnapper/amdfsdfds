@@ -7,6 +7,7 @@ import { Button } from '../../components/Form';
 import { DoctorsTable } from '../../components/Tables';
 import { doctorsData } from '../../components/Datas';
 import { useNavigate } from 'react-router-dom';
+import AddDoctorModal from '../../components/Modals/AddDoctorModal';
 
 function Doctors() {
   const [isOpen, setIsOpen] = React.useState(false);
