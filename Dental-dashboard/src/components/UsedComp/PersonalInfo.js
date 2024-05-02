@@ -6,7 +6,7 @@ import { BiChevronDown } from 'react-icons/bi';
 import { toast } from 'react-hot-toast';
 import { HiOutlineCheckCircle } from 'react-icons/hi';
 import { RiDeleteBin5Line } from 'react-icons/ri';
-import { db, collection, addDoc } from '../lib/firebase-config';
+import { db, collection, addDoc } from '../UsedComp/firebase-config';
 
 function PersonalInfo({ titles }) {
   const [title, setTitle] = useState(sortsDatas.title[0]);
