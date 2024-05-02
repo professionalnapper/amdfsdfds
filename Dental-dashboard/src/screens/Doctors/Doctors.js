@@ -23,6 +23,17 @@ function Doctors() {
 
   return (
     <Layout>
+      {
+        // add doctor modal
+        isOpen && (
+          <AddDoctorModal
+            closeModal={onCloseModal}
+            isOpen={isOpen}
+            doctor={true}
+            datas={null}
+          />
+        )
+      }
       {/* add button */}
       <button
         onClick={() => setIsOpen(true)}
@@ -45,7 +56,7 @@ function Doctors() {
           <div className="md:col-span-5 grid lg:grid-cols-4 items-center gap-6">
             <input
               type="text"
-              placeholder='Search "Wonu Jeon"'
+              placeholder='Search "daudi mburuge"'
               className="h-14 w-full text-sm text-main rounded-md bg-dry border border-border px-4"
             />
           </div>
