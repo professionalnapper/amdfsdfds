@@ -3,6 +3,7 @@ import { Button, Input } from '../components/Form';
 import { BiLogInCircle } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { db, collection, addDoc } from '../lib/firebase-config'; // Import your Firebase configuration
+import { toast } from 'react-hot-toast';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -17,9 +18,6 @@ function SignUp() {
     phoneNumber: ''
   });
 
-  // State for pop-up message visibility
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
   // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,31 +31,15 @@ function SignUp() {
     e.preventDefault();
     try {
       // Add a new document with the form data to the "Users" collection
-      const docRef = await addDoc(collection(db, "Users"), formData);
-      console.log("Document written with ID: ", docRef.id);
+      await addDoc(collection(db, "Users"), formData);
       // Show the success message
-      setShowSuccessMessage(true);
+      toast.success('Registered successfully!');
+      // Redirect to the login page after 3 seconds
+      setTimeout(() => navigate("/login"), 3000);
     } catch (error) {
       console.error("Error adding document: ", error);
       // Handle error, e.g., show an error message to the user
     }
-  };
-
-  // Handle confirmation of success message
-  const handleConfirmSuccess = () => {
-    // Reset form data
-    setFormData({
-      name: '',
-      username: '',
-      password: '',
-      confirmPassword: '',
-      email: '',
-      phoneNumber: ''
-    });
-    // Hide the success message
-    setShowSuccessMessage(false);
-    // Redirect to the login page
-    navigate("/login");
   };
 
   return (
@@ -130,14 +112,6 @@ function SignUp() {
           Icon={BiLogInCircle}
         />
       </form>
-      {showSuccessMessage && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg">
-            <p className="mb-4">Registration Successful!</p>
-            <Button label="Confirm" onClick={handleConfirmSuccess} />
-          </div>
-        </div>
-      )}
     </div>
   );
 }
