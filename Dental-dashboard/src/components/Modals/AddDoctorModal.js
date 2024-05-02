@@ -5,15 +5,29 @@ import { BiChevronDown } from 'react-icons/bi';
 import { sortsDatas } from '../Datas';
 import { HiOutlineCheckCircle } from 'react-icons/hi';
 import { toast } from 'react-hot-toast';
-import Access from '../Access';
+import { db, collection, addDoc } from '../lib/firebase-config'; // Import Firestore functions
 import Uploader from '../Uploader';
 
 function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
   const [instraction, setInstraction] = useState(sortsDatas.title[0]);
-  const [access, setAccess] = useState({});
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
 
-  const onSubmit = () => {
-    toast.error('This feature is not available yet');
+  const onSubmit = async () => {
+    try {
+      await addDoc(collection(db, 'Doctors'), {
+        fullName: fullName,
+        title: instraction.name,
+        email: email,
+        phoneNumber: phoneNumber
+      });
+      toast.success('Doctor added successfully');
+      closeModal();
+    } catch (error) {
+      console.error('Error adding doctor: ', error);
+      toast.error('Failed to add doctor');
+    }
   };
 
   return (
@@ -30,7 +44,7 @@ function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
 
       <div className="flex-colo gap-6">
         <div className="grid sm:grid-cols-2 gap-4 w-full">
-          <Input label="Full Name" color={true} placeholder="John Doe" />
+          <Input label="Full Name" color={true} placeholder="John Doe" onChange={(e) => setFullName(e.target.value)} />
 
           <div className="flex w-full flex-col gap-3">
             <p className="text-black text-sm">Title</p>
@@ -47,19 +61,11 @@ function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
         </div>
 
         <div className="grid sm:grid-cols-2 gap-4 w-full">
-          <Input label="Email" color={true} />
-          <Input label="Phone Number" color={true} />
+          <Input label="Email" color={true} onChange={(e) => setEmail(e.target.value)} />
+          <Input label="Phone Number" color={true} onChange={(e) => setPhoneNumber(e.target.value)} />
         </div>
 
-        {/* password */}
-        <Input label="Password" color={true} />
-
-        {/* table access */}
-        <div className="w-full">
-          <Access setAccess={setAccess} />
-        </div>
-
-        {/* buttones */}
+        {/* buttons */}
         <div className="grid sm:grid-cols-2 gap-4 w-full">
           <button
             onClick={closeModal}
