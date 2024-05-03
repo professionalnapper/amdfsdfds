@@ -188,6 +188,19 @@ export const memberData = [
   totalAppointments: 70,
   date: '10 Jun 2018',
 },
+{
+id: 10,
+title: 'Seo Myungho',
+image: '/images/memberThe8.jpeg',
+admin: false,
+phone: '+63 921 647 4453',
+email: 'the8isme.palranghae@gmail.com',
+age: 27,
+gender: 'Male',
+blood: 'B',
+totalAppointments: 70,
+date: '10 Jul 2018',
+},
 ];
 
 export const sortsDatas = {

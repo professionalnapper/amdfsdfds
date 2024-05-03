@@ -60,6 +60,8 @@ function Patients() {
     navigate(`/patients/preview/${id}`);
   };
 
+  const filteredMemberData = memberData.slice(4, 10);
+
   return (
     <Layout>
       {/* add button */}
@@ -143,7 +145,7 @@ function Patients() {
         </div>
         <div className="mt-8 w-full overflow-x-scroll">
           <PatientTable
-            data={memberData}
+            data={filteredMemberData} //filter
             functions={{
               preview: previewPayment,
             }}
