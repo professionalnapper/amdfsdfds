@@ -722,6 +722,72 @@ export const invoicesData = [
       },
     ],
   },
+  {
+    id: 323786,
+    to: memberData[8],
+    total: 5000,
+    createdDate: '11/11/2023',
+    dueDate: '21/11/2023',
+    items: [
+      {
+        id: 1,
+        name: servicesData[3].name,
+        price: 190000,
+        description: 'Dental Crowns Treatment',
+      },
+      {
+        id: 2,
+        name: servicesData[4].name,
+        price: 15000,
+        description: 'Dental Bridges Treatment',
+      },
+      {
+        id: 3,
+        name: servicesData[8].name,
+        price: 20000,
+        description: 'Dentures Treatment',
+      },
+      {
+        id: 4,
+        name: servicesData[3].name,
+        price: 190000,
+        description: 'Dental Crowns Treatment',
+      },
+    ],
+  },
+  {
+    id: 246985,
+    to: memberData[9],
+    total: 5000,
+    createdDate: '18/05/2023',
+    dueDate: '30/05/2023',
+    items: [
+      {
+        id: 1,
+        name: servicesData[3].name,
+        price: 190000,
+        description: 'Dental Crowns Treatment',
+      },
+      {
+        id: 2,
+        name: servicesData[4].name,
+        price: 15000,
+        description: 'Dental Bridges Treatment',
+      },
+      {
+        id: 3,
+        name: servicesData[8].name,
+        price: 20000,
+        description: 'Dentures Treatment',
+      },
+      {
+        id: 4,
+        name: servicesData[3].name,
+        price: 190000,
+        description: 'Dental Crowns Treatment',
+      },
+    ],
+  },
 ];
 
 export const appointmentsData = [

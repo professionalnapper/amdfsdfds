@@ -16,7 +16,7 @@ import { toast } from 'react-hot-toast';
 import PatientMedicineServiceModal from './PatientMedicineServiceModal';
 
 // edit member data
-const doctorsData = memberData.map((item) => {
+const doctorsData = memberData.slice(0,4).map((item) => {
   return {
     id: item.id,
     name: item.title,
