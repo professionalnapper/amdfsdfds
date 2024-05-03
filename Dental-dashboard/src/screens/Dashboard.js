@@ -93,7 +93,7 @@ function Dashboard() {
             {/* table */}
             <div className="mt-4 overflow-x-scroll">
               <Transactiontable
-                data={transactionData.slice(0, 5)}
+                data={transactionData.slice(0, 6)}
                 action={false}
               />
             </div>
@@ -110,7 +110,7 @@ function Dashboard() {
           {/* recent patients */}
           <div className="bg-white rounded-xl border-[1px] border-border p-5">
             <h2 className="text-sm font-medium">Recent Patients</h2>
-            {memberData.slice(3, 8).map((member, index) => (
+            {memberData.slice(4, 10).map((member, index) => (
               <Link
                 to={`/patients/preview/${member.id}`}
                 key={index}
