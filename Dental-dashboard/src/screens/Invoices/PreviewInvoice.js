@@ -134,23 +134,23 @@ function PreviewInvoice() {
           <div className="col-span-6 lg:col-span-2 flex flex-col gap-6">
             <div className="flex-btn gap-4">
               <p className="text-sm font-extralight">Currency:</p>
-              <h6 className="text-sm font-medium">USD ($)</h6>
+              <h6 className="text-sm font-medium">Php (₱)</h6>
             </div>
             <div className="flex-btn gap-4">
               <p className="text-sm font-extralight">Sub Total:</p>
-              <h6 className="text-sm font-medium">$459</h6>
+              <h6 className="text-sm font-medium">₱459</h6>
             </div>
             <div className="flex-btn gap-4">
               <p className="text-sm font-extralight">Discount:</p>
-              <h6 className="text-sm font-medium">$49</h6>
+              <h6 className="text-sm font-medium">₱49</h6>
             </div>
             <div className="flex-btn gap-4">
               <p className="text-sm font-extralight">Tax:</p>
-              <h6 className="text-sm font-medium">$4.90</h6>
+              <h6 className="text-sm font-medium">₱4.90</h6>
             </div>
             <div className="flex-btn gap-4">
               <p className="text-sm font-extralight">Grand Total:</p>
-              <h6 className="text-sm font-medium text-green-600">$6000</h6>
+              <h6 className="text-sm font-medium text-green-600">₱6000</h6>
             </div>
             {/* notes */}
             <div className="w-full p-4 border border-border rounded-lg">
