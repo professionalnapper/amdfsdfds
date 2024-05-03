@@ -828,6 +828,15 @@ export const transactionData = [
     method: 'Cash',
     doctor: memberData[0],
   },
+  {
+    id: 6,
+    user: memberData[9],
+    date: 'Mar 12, 2026',
+    amount: 1230,
+    status: 'Pending',
+    method: 'PhilHealth',
+    doctor: memberData[0],
+  },
 ];
 
 export const dashboardCards = [

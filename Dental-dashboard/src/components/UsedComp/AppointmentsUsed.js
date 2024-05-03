@@ -17,6 +17,8 @@ function AppointmentsUsed({ doctor }) {
     setOpen(!open);
     setData({});
   };
+
+  
   return (
     <div className="w-full">
       {open && (
