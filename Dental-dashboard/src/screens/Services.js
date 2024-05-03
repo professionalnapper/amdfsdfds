@@ -40,7 +40,7 @@ function Services() {
         <BiPlus className="text-2xl" />
       </button>
       {/*  */}
-      <h1 className="text-xl font-semibold">Services</h1>
+      <h1 className="text-xl font-semibold">Service</h1>
       <div
         data-aos="fade-up"
         data-aos-duration="1000"
