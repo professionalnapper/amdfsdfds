@@ -220,11 +220,15 @@ export const sortsDatas = {
     },
     {
       id: 3,
-      name: 'NHCF Insurance',
+      name: 'PhilHealth',
     },
     {
       id: 4,
-      name: 'Britam Insurance',
+      name: 'MaxiCare',
+    },
+    {
+      id: 5,
+      name: 'ValuCare',
     },
   ],
   currency: [
@@ -234,11 +238,11 @@ export const sortsDatas = {
     },
     {
       id: 2,
-      name: 'USD (US Dollar)',
+      name: 'PHP (Philippine Peso)',
     },
     {
       id: 3,
-      name: 'EUR (Euro)',
+      name: 'USD (US Dollar)',
     },
     {
       id: 4,
