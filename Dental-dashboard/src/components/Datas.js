@@ -764,7 +764,7 @@ export const appointmentsData = [
     to: '12:00 PM',
     hours: 7,
     status: 'Approved',
-    doctor: memberData[4],
+    doctor: memberData[0],
     date: 'May 18, 2023',
   },
 ];
@@ -785,7 +785,7 @@ export const transactionData = [
     date: 'August 12, 2023',
     amount: 2300,
     status: 'Paid',
-    method: 'NHCF',
+    method: 'ValuCare',
     doctor: memberData[1],
   },
   {
@@ -794,7 +794,7 @@ export const transactionData = [
     date: 'Jan 06, 2024',
     amount: 1200,
     status: 'Pending',
-    method: 'Britam',
+    method: 'MaxiCare',
     doctor: memberData[2],
   },
   {
@@ -803,7 +803,7 @@ export const transactionData = [
     date: 'Feb 18, 2025',
     amount: 1400,
     status: 'Cancel',
-    method: 'NHCF',
+    method: 'PhilHealth',
     doctor: memberData[3],
   },
   {
@@ -814,33 +814,6 @@ export const transactionData = [
     status: 'Pending',
     method: 'Cash',
     doctor: memberData[0],
-  },
-  {
-    id: 6,
-    user: memberData[5],
-    date: 'Apr 12, 2027',
-    amount: 1000,
-    status: 'Paid',
-    method: 'NHCF',
-    doctor: memberData[0],
-  },
-  {
-    id: 7,
-    user: memberData[6],
-    date: 'May 12, 2028',
-    amount: 8900,
-    status: 'Cancel',
-    method: 'Britam',
-    doctor: memberData[1],
-  },
-  {
-    id: 8,
-    user: memberData[7],
-    date: 'Jun 12, 2029',
-    amount: 1000,
-    status: 'Pending',
-    method: 'Britam',
-    doctor: memberData[2],
   },
 ];
 
