@@ -1,17 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Modal from './Modal';
-import { Button, Input, Switchi, Textarea } from '../Form';
+import { Button, Input } from '../Form';
 import { HiOutlineCheckCircle } from 'react-icons/hi';
 import { toast } from 'react-hot-toast';
+import { db, addDoc, collection } from '../lib/firebase-config'; // Import Firestore functions
 
 function AddEditServiceModal({ closeModal, isOpen, datas }) {
-  const [check, setCheck] = useState(false);
+  const [serviceName, setServiceName] = useState(datas?.name || '');
+  const [price, setPrice] = useState(datas?.price || '');
 
-  useEffect(() => {
-    if (datas?.name) {
-      setCheck(datas?.status);
+  const handleSave = async () => {
+    try {
+      // Save data to Firebase
+      await addDoc(collection(db, 'Services'), {
+        name: serviceName,
+        price: parseFloat(price) // Convert to number
+      });
+      toast.success('Service saved successfully!');
+      closeModal();
+    } catch (error) {
+      console.error('Error saving service:', error);
+      toast.error('Failed to save service. Please try again later.');
     }
-  }, [datas]);
+  };
 
   return (
     <Modal
@@ -24,35 +35,19 @@ function AddEditServiceModal({ closeModal, isOpen, datas }) {
         <Input
           label="Service Name"
           color={true}
-          placeholder={datas?.name && datas.name}
+          value={serviceName}
+          onChange={(e) => setServiceName(e.target.value)}
         />
 
         <Input
           label="Price (Php)"
           type="number"
           color={true}
-          placeholder={datas?.price ? datas.price : 0}
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
         />
 
-        {/* des */}
-        <Textarea
-          label="Description"
-          placeholder="Write description here..."
-          color={true}
-          rows={5}
-        />
-        {/* switch */}
-        <div className="flex items-center gap-2 w-full">
-          <Switchi
-            label="Status"
-            checked={check}
-            onChange={() => setCheck(!check)}
-          />
-          <p className={`text-sm ${check ? 'text-subMain' : 'text-textGray'}`}>
-            {check ? 'Enabled' : 'Disabled'}
-          </p>
-        </div>
-        {/* buttones */}
+        {/* Buttons */}
         <div className="grid sm:grid-cols-2 gap-4 w-full">
           <button
             onClick={closeModal}
@@ -63,9 +58,7 @@ function AddEditServiceModal({ closeModal, isOpen, datas }) {
           <Button
             label="Save"
             Icon={HiOutlineCheckCircle}
-            onClick={() => {
-              toast.error('This feature is not available yet');
-            }}
+            onClick={handleSave} // Call handleSave function on click
           />
         </div>
       </div>
