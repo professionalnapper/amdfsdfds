@@ -23,6 +23,8 @@ import NotFound from './screens/NotFound';
 import Login from './screens/Login';
 import SignUp from './screens/SignUp';
 import ForgotPassword from './screens/ForgotPassword';
+import EmailAuthentication from './screens/EmailAuthentication';
+import CodeVerification from './screens/CodeVerification';
 
 function App() {
   Aos.init();
@@ -59,6 +61,8 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/emailauth" element={<EmailAuthentication />} />
+          <Route path="/verifycode" element={<CodeVerification />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

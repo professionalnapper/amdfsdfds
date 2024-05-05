@@ -4,7 +4,7 @@ import { BiLogInCircle } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { db, collection, query, where, getDocs } from '../lib/firebase-config'; // Import Firebase configuration
 
-function Login() {
+function ForgotPassword() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
@@ -56,6 +56,7 @@ function Login() {
         />
 
         <div className="flex flex-col gap-4 w-full mb-6">
+
           <Input
             label="Enter New Password"
             type="password"
@@ -94,4 +95,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ForgotPassword;

@@ -4,7 +4,7 @@ import { BiLogInCircle } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { db, collection, query, where, getDocs } from '../lib/firebase-config'; // Import Firebase configuration
 
-function Login() {
+function EmailAuthentication() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
@@ -52,50 +52,36 @@ function Login() {
       <img
         src={process.env.PUBLIC_URL + '/images/healthflow-logo.png'}
         alt="logo"
-        className="w-32 h-auto object-contain mb-0 mx-auto"
+        className="w-32 h-16 object-cover mb-0 mx-auto"
         />
 
         <div className="flex flex-col gap-4 w-full mb-6">
-          <Input
-            label="Username"
+            
+            <p style={{ fontSize: '24px', textAlign: 'center' }}>
+        <b>Email Authentication </b>
+        </p>
+        <Input
+            //label="Email"
             type="text"
             color={true}
-            placeholder={'admin@gmail.com'}
-            name="identifier"
+            placeholder={'Enter email address...'}
+            name="email"
           />
-          <Input
-            label="Password"
-            type="password"
-            color={true}
-            placeholder={'*******'}
-            name="password"
-          />
-
-          <div className="flex justify-end mt-1 mr-1">
-          <button
-            className="text-black py-0 px-2 rounded focus:outline-none"
-            style={{ fontSize: '12px', border: 'none', background: 'none' }} // Adjust font size as needed
-            onClick={() => navigate('/emailauth')}
-          >
-            Forgot Password?
-            
-          </button>
-        </div>
-
-        </div>
+          </div>
         {error && <p className="text-red-500">{error}</p>}
 
         <Button
-          label="Login"
+          label="Continue"
           Icon={BiLogInCircle}
           type="submit"
+          onClick={() => {
+            window.alert('Reset Instructions have been successfully sent through your e-mail.');
+            navigate('/verifycode');
+          }}
         />
+        
         <div className="mt-2"></div>
-        <Button
-          label="Sign Up"
-          Icon={BiLogInCircle}
-          onClick={() => navigate('/signup')}
-        />
+        
         <div className="text-center text-sm text-gray-400 mt-4"style={{ fontSize: '12px' }}>
           
         © 2024 HealthFlow. All rights reserved
@@ -105,4 +91,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default EmailAuthentication;
