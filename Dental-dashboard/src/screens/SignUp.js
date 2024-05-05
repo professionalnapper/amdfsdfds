@@ -43,14 +43,14 @@ function SignUp() {
   };
 
   return (
-    <div className="w-full h-screen flex-colo bg-dry">
+    <div className="w-full h-full flex-colo bg-dry">
       <form className="w-2/5 p-8 rounded-2xl mx-auto bg-white flex-colo" onSubmit={handleSubmit}>
         
         <img
           src="/images/healthflow-logo.png"
           alt="healthflow"
-          className="w-32 h-auto object-contain"
-          style={{ paddingTop: '130px'}}
+          className="w-24 h-24 object-cover"
+          
         />
         <div className="flex flex-col gap-4 w-full mb-6">
           <Input
@@ -113,6 +113,10 @@ function SignUp() {
           label="Register"
           Icon={BiLogInCircle}
         />
+        <div className="text-center text-sm text-gray-400 mt-4"style={{ fontSize: '12px' }}>
+          
+          © 2024 HealthFlow. All rights reserved
+        </div>
       </form>
     </div>
   );

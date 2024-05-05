@@ -94,6 +94,10 @@ function Login() {
           Icon={BiLogInCircle}
           onClick={() => navigate('/signup')}
         />
+        <div className="text-center text-sm text-gray-400 mt-4"style={{ fontSize: '12px' }}>
+          
+        © 2024 HealthFlow. All rights reserved
+      </div>
       </form>
     </div>
   );
