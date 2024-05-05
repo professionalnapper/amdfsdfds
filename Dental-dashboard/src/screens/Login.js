@@ -47,12 +47,12 @@ function Login() {
   };
 
   return (
-    <div className="w-full h-screen flex-colo bg-dry">
-      <form className="w-2/5 p-8 rounded-2xl mx-auto bg-white flex-colo" onSubmit={handleLogin}>
-        <img
-          src={process.env.PUBLIC_URL + '/images/healthflow-logo.png'}
-          alt="logo"
-          className="w-48 h-16 object-contain"
+    <div className="w-full min-h-screen flex justify-center items-center bg-dry">
+    <form className="w-2/5 p-8 rounded-2xl mx-auto bg-white flex flex-col" onSubmit={handleLogin}>
+      <img
+        src={process.env.PUBLIC_URL + '/images/healthflow-logo.png'}
+        alt="logo"
+        className="w-32 h-auto object-contain mb-0 mx-auto"
         />
 
         <div className="flex flex-col gap-4 w-full mb-6">
@@ -70,8 +70,19 @@ function Login() {
             placeholder={'*******'}
             name="password"
           />
+
+          <div className="flex justify-end mt-1 mr-1">
+          <button
+            className="text-black py-0 px-2 rounded focus:outline-none"
+            style={{ fontSize: '12px', border: 'none', background: 'none' }} // Adjust font size as needed
+          >
+            Forgot Password?
+          </button>
+        </div>
+
         </div>
         {error && <p className="text-red-500">{error}</p>}
+
         <Button
           label="Login"
           Icon={BiLogInCircle}

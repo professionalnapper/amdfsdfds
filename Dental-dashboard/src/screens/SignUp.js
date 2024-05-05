@@ -45,10 +45,12 @@ function SignUp() {
   return (
     <div className="w-full h-screen flex-colo bg-dry">
       <form className="w-2/5 p-8 rounded-2xl mx-auto bg-white flex-colo" onSubmit={handleSubmit}>
+        
         <img
           src="/images/healthflow-logo.png"
           alt="healthflow"
-          className="w-48 h-16 object-contain"
+          className="w-32 h-auto object-contain"
+          style={{ paddingTop: '130px'}}
         />
         <div className="flex flex-col gap-4 w-full mb-6">
           <Input
