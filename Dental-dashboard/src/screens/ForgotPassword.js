@@ -57,45 +57,34 @@ function Login() {
 
         <div className="flex flex-col gap-4 w-full mb-6">
           <Input
-            label="Username"
-            type="text"
-            color={true}
-            placeholder={'admin@gmail.com'}
-            name="identifier"
-          />
-          <Input
-            label="Password"
+            label="Enter New Password"
             type="password"
             color={true}
             placeholder={'*******'}
             name="password"
           />
-
-          <div className="flex justify-end mt-1 mr-1">
-          <button
-            className="text-black py-0 px-2 rounded focus:outline-none"
-            style={{ fontSize: '12px', border: 'none', background: 'none' }} // Adjust font size as needed
-            onClick={() => navigate('/forgotpassword')}
-          >
-            Forgot Password?
-            
-          </button>
-        </div>
+          <Input
+            label="Confirm Password"
+            type="password"
+            color={true}
+            placeholder={'*******'}
+            name="confirmpassword"
+          />
 
         </div>
         {error && <p className="text-red-500">{error}</p>}
 
         <Button
-          label="Login"
+          label="Change Password"
           Icon={BiLogInCircle}
           type="submit"
+          onClick={() => {
+            window.alert('Your Password has been successfully changed. Please proceed to Login.');
+            navigate('/login');
+          }}
         />
         <div className="mt-2"></div>
-        <Button
-          label="Sign Up"
-          Icon={BiLogInCircle}
-          onClick={() => navigate('/signup')}
-        />
+        
         <div className="text-center text-sm text-gray-400 mt-4"style={{ fontSize: '12px' }}>
           
         © 2024 HealthFlow. All rights reserved
