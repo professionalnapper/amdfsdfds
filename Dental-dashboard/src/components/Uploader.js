@@ -7,14 +7,31 @@ import { FiUploadCloud } from 'react-icons/fi';
 const Uploader = ({ setImage, image }) => {
   const [loading, setLoading] = useState(false);
 
-  // upload file
-  const onDrop = useCallback(async (acceptedFiles) => {
-    toast.error('This feature is not available yet');
-  }, []);
+  const onDrop = useCallback((acceptedFiles) => {
+    setLoading(true);
+    const file = acceptedFiles[0]; // Assuming only one file is being uploaded
+    console.log(file);
+    if (file) {
+      const localImageUrl = URL.createObjectURL(file);
+      console.log(localImageUrl);
+      setImage({
+        file: file,
+        url: localImageUrl
+      }); // Pass the file to the parent component for uploading
+      console.log(image?.url);
+      setLoading(false);
+      toast.success('File is ready to be uploaded!');
+    } else {
+      setLoading(false);
+      toast.error('Failed to load the image');
+    }
+    console.log(image.file);
+  }, [setImage]);
 
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
     onDrop,
+    accept: 'image/jpeg, image/png'
   });
 
   return (
@@ -27,23 +44,22 @@ const Uploader = ({ setImage, image }) => {
         <span className="mx-auto flex justify-center">
           <FiUploadCloud className="text-3xl text-subMain" />
         </span>
-        <p className="text-sm mt-2">Drag your image here</p>
+        <p className="text-sm mt-2">Drag your image here, or click to select files</p>
         <em className="text-xs text-gray-400">
           (Only *.jpeg and *.png images will be accepted)
         </em>
       </div>
-      {/* image preview */}
       <div className="lg:col-span-2 sm:col-span-4 col-span-12">
         {loading ? (
           <div className="px-6 w-full bg-dry flex-colo h-32 border-2 border-border border-dashed rounded-md">
             <BiLoaderCircle className="mx-auto text-main text-3xl animate-spin" />
-            <span className="text-sm mt-2 text-text">Uploading...</span>
+            <span className="text-sm mt-2 text-text">Loading...</span>
           </div>
         ) : (
           <img
-            src={image ? image : 'http://placehold.it/300x300'}
-            alt="preview"
-            className=" w-full h-32 rounded object-cover"
+            src={ image&&image.url?image.url : 'http://placehold.it/300x300'}
+            alt="Uploaded Preview"
+            className="w-full h-32 rounded object-cover"
           />
         )}
       </div>
