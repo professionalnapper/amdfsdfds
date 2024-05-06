@@ -18,6 +18,6 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app); // Firestore instance
-const storage = getStorage(app);
+const storage = getStorage(app); // Initialize storage properly
 
 export { app, db, auth, storage, analytics, collection, addDoc, query, where, getDocs }; // Export Firestore functions
