@@ -14,25 +14,66 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
   const [instraction, setInstraction] = useState(sortsDatas.title[0]);
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phoneNumber: '',
+  });
+  const [image, setImage] = useState(null);
+  console.log('Image can enter');
+  const [loading, setLoading] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  const onSubmit = async () => {
+  const handleSaveChanges = async () => {
+    if(!image?.file) {
+      toast.error('No image selected.');
+      return;
+    }
+    setLoading(true);
     try {
-      await addDoc(collection(db, 'Doctors'), {
-        fullName: fullName,
-        title: instraction.name,
-        email: email,
-        phoneNumber: phoneNumber
+      const storageRef = ref(storage, `docimage/${image.file.name}`);
+      const snapshot = await uploadBytes(storageRef, image.file);
+      const imageUrl = await getDownloadURL(snapshot.ref);
+
+      const docRef = await addDoc(collection(db, 'Doctors'), {
+        instraction: instraction.name,
+        ...formData,
+        imageUrl
       });
+      console.log('Document written with ID:', docRef.id);
       toast.success('Doctor added successfully');
       closeModal();
-    } catch (error) {
-      console.error('Error adding doctor: ', error);
-      toast.error('Failed to add doctor');
+    } catch(error) {
+      console.error('Error saving changes:', error);
+      toast.error('An unexpected error occured');
+    } finally {
+      setLoading(false);
     }
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  // const onSubmit = async () => {
+  //   try {
+  //     await addDoc(collection(db, 'Doctors'), {
+  //       fullName: fullName,
+  //       title: instraction.name,
+  //       email: email,
+  //       phoneNumber: phoneNumber
+  //     });
+  //     // toast.success('Doctor added successfully');
+  //     // closeModal();
+  //   } catch (error) {
+  //     console.error('Error adding doctor: ', error);
+  //     toast.error('Failed to add doctor');
+  //   }
+  // };
 
   return (
     <Modal
@@ -43,12 +84,12 @@ function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
     >
       <div className="flex gap-3 flex-col col-span-6 mb-6">
         <p className="text-sm">Profile Image</p>
-        <Uploader />
+        <Uploader setImage={setImage}/>
       </div>
 
       <div className="flex-colo gap-6">
         <div className="grid sm:grid-cols-2 gap-4 w-full">
-          <Input label="Full Name" color={true} placeholder="John Doe" onChange={(e) => setFullName(e.target.value)} />
+          <Input label="Full Name" color={true} placeholder="John Doe" type="text" name="fullName" value={formData.fullName} onChange={handleChange} />
 
           <div className="flex w-full flex-col gap-3">
             <p className="text-black text-sm">Title</p>
@@ -65,8 +106,8 @@ function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
         </div>
 
         <div className="grid sm:grid-cols-2 gap-4 w-full">
-          <Input label="Email" color={true} onChange={(e) => setEmail(e.target.value)} />
-          <Input label="Phone Number" color={true} onChange={(e) => setPhoneNumber(e.target.value)} />
+          <Input label="Email" color={true} placeholder="johndoe@gmail.com" type="text" name="email" value={formData.email} onChange={handleChange} />
+          <Input label="Phone Number" color={true} placeholder="123456789" type="number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
         </div>
 
         {/* buttons */}
@@ -77,7 +118,7 @@ function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
           >
             Cancel
           </button>
-          <Button label="Save" Icon={HiOutlineCheckCircle} onClick={onSubmit} />
+          <Button label="Save" Icon={HiOutlineCheckCircle} onClick={handleSaveChanges} />
         </div>
       </div>
     </Modal>

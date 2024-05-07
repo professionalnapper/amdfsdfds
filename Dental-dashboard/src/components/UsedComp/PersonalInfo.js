@@ -35,7 +35,7 @@
         return;
       }
       setLoading(true);
-      try {
+      try { 
         const storageRef = ref(storage, `patientimage/${image.file.name}`);
         const snapshot = await uploadBytes(storageRef, image.file);
         const imageUrl = await getDownloadURL(snapshot.ref);
@@ -125,7 +125,7 @@
         {/* Action buttons */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
           <Button label="Delete Account" Icon={RiDeleteBin5Line} onClick={handleDeleteAccount} />
-          <Button label="Save Changes" Icon={HiOutlineCheckCircle} onClick={  handleSaveChanges} />
+          <Button label="Save Changes" Icon={HiOutlineCheckCircle} onClick={handleSaveChanges} />
         </div>
         {showSuccessMessage && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
