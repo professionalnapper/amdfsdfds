@@ -13,7 +13,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 
 function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
-  const [instraction, setInstraction] = useState(sortsDatas.title[0]);
+  const [title, settitle] = useState(sortsDatas.title[0]);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -36,7 +36,7 @@ function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
       const imageUrl = await getDownloadURL(snapshot.ref);
 
       const docRef = await addDoc(collection(db, 'Doctors'), {
-        instraction: instraction.name,
+        title: title.name,
         ...formData,
         imageUrl
       });
@@ -63,7 +63,7 @@ function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
   //   try {
   //     await addDoc(collection(db, 'Doctors'), {
   //       fullName: fullName,
-  //       title: instraction.name,
+  //       title: title.name,
   //       email: email,
   //       phoneNumber: phoneNumber
   //     });
@@ -94,12 +94,12 @@ function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
           <div className="flex w-full flex-col gap-3">
             <p className="text-black text-sm">Title</p>
             <Select
-              selectedPerson={instraction}
-              setSelectedPerson={setInstraction}
+              selectedPerson={title}
+              setSelectedPerson={settitle}
               datas={sortsDatas.title}
             >
               <div className="w-full flex-btn text-textGray text-sm p-4 border border-border font-light rounded-lg focus:border focus:border-subMain">
-                {instraction.name} <BiChevronDown className="text-xl" />
+                {title.name} <BiChevronDown className="text-xl" />
               </div>
             </Select>
           </div>
