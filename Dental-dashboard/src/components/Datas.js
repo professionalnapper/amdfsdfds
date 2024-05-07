@@ -1,3 +1,5 @@
+import { db, collection, getDocs } from '../lib/firebase-config';
+
 import { HiOutlineHome, HiOutlineMail, HiOutlineUsers } from 'react-icons/hi';
 import {
   TbCalendar,
@@ -82,7 +84,7 @@ export const memberData = [
     gender: 'Male',
     blood: 'A',
     totalAppointments: 5,
-    date: '20 Aug 2021',
+    date: '20 Aug 2021',   
   },
   {
     id: 2,
@@ -200,6 +202,19 @@ gender: 'Male',
 blood: 'B',
 totalAppointments: 70,
 date: '10 Jul 2018',
+},
+{//CANNOT FIND THIS DATA ON THE PATIENTS TAB
+  id: 11,
+  title: 'Zach Ignatius Tyson',
+  image: '/images/gregoryhouse.jpg',
+  admin: false,
+  email: 'zakeyblazetyson@gmail.com',
+  phone: '+693939399393',
+  age: 27,
+  gender: 'Male',
+  blood: 'C',
+  totalAppointments: 14,
+  date: '20 Aug 2021',   
 },
 ];
 
@@ -1288,7 +1303,9 @@ export const medicalRecodData = [
   },
 ];
 
-export const doctorsData = [
+export const doctorsData = [ 
+  //CURRENTLY PROGRAMMED AS A STATIC DATA, 
+  //NEED TO CHANGE INTO DYNAMIC DATA WHERE ALL DOCTORS REGISTERED IN THE DATABASE WILL BE SHOWN HERE
   {
     id: 1,
     user: memberData[0],
@@ -1309,9 +1326,14 @@ export const doctorsData = [
     user: memberData[3],
     title: 'Dr.',
   },
+  {//Fresh data
+    id: 11,
+    user: memberData[10],
+    title: 'Dr.',
+  },
 ];
 
-export const receptionsData = [
+export const receptionsData = [ 
   {
     id: 1,
     user: memberData[6],
