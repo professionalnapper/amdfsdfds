@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
+import Uploader from '../Uploader';
 import { Button, Input, Select } from '../Form';
 import { BiChevronDown } from 'react-icons/bi';
+import { toast } from 'react-hot-toast';
 import { sortsDatas } from '../Datas';
 import { HiOutlineCheckCircle } from 'react-icons/hi';
-import { toast } from 'react-hot-toast';
 import { db, collection, addDoc } from '../lib/firebase-config'; // Import Firestore functions
-import Uploader from '../Uploader';
+import { storage } from '../lib/firebase-config'; // Ensure this path is correct for Firebase storage
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+
 
 function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
   const [instraction, setInstraction] = useState(sortsDatas.title[0]);
