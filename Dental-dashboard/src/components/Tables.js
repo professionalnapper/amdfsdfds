@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MenuSelect } from './Form';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { FiEdit, FiEye } from 'react-icons/fi';
 import { RiDeleteBin6Line, RiDeleteBinLine } from 'react-icons/ri';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../lib/firebase-config';
 
 const thclass = 'text-start text-sm font-medium py-3 px-2 whitespace-nowrap';
 const tdclass = 'text-start text-sm py-4 px-2 whitespace-nowrap';
@@ -352,7 +354,27 @@ export function PatientTable({ data, functions, used }) {
 }
 
 // doctor table
-export function DoctorsTable({ data, functions, doctor }) {
+export function DoctorsTable({ functions }) {
+  const [doctors, setDoctors] = useState([]);
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'Doctors'));
+        const doctorList = [];
+        querySnapshot.forEach((doc) => {
+          doctorList.push({ id: doc.id, ...doc.data() });
+        });
+        setDoctors(doctorList);
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+        toast.error('Failed to fetch doctors');
+      }
+    };
+
+    fetchDoctors();
+  }, []);
+
   const DropDown1 = [
     {
       title: 'View',
@@ -369,12 +391,13 @@ export function DoctorsTable({ data, functions, doctor }) {
       },
     },
   ];
+
   return (
     <table className="table-auto w-full">
       <thead className="bg-dry rounded-md overflow-hidden">
         <tr>
           <th className={thclass}>#</th>
-          <th className={thclass}>{doctor ? 'Doctor' : 'Receptionist'}</th>
+          <th className={thclass}>Doctor</th>
           <th className={thclass}>Date Created</th>
           <th className={thclass}>Phone</th>
           <th className={thclass}>Title</th>
@@ -383,7 +406,7 @@ export function DoctorsTable({ data, functions, doctor }) {
         </tr>
       </thead>
       <tbody>
-        {data.map((item, index) => (
+        {doctors.map((item, index) => (
           <tr
             key={item.id}
             className="border-b border-border hover:bg-greyed transitions"
@@ -393,20 +416,20 @@ export function DoctorsTable({ data, functions, doctor }) {
               <div className="flex gap-4 items-center">
                 <span className="w-12">
                   <img
-                    src={item.user.image}
-                    alt={item.user.title}
+                    src={item.imageUrl || 'http://placehold.it/50x50'} // Placeholder image if no image is available
+                    alt={item.title}
                     className="w-full h-12 rounded-full object-cover border border-border"
                   />
                 </span>
-                <h4 className="text-sm font-medium">{item.user.title}</h4>
+                <h4 className="text-sm font-medium">{item.fullName}</h4>
               </div>
             </td>
-            <td className={tdclass}>12 May, 2021</td>
+            <td className={tdclass}>{item.dateCreated}</td>
             <td className={tdclass}>
-              <p className="text-textGray">{item.user.phone}</p>
+              <p className="text-textGray">{item.phoneNumber}</p>
             </td>
             <td className={tdclass}>{item.title}</td>
-            <td className={tdclass}>{item.user.email}</td>
+            <td className={tdclass}>{item.email}</td>
 
             <td className={tdclass}>
               <MenuSelect datas={DropDown1} item={item}>
