@@ -376,6 +376,27 @@ export function PatientTable({ functions, used }) {
     fetchPatients();
   }, []);
 
+  const calculateAge = (dateOfBirth) => {
+    const dob = new Date(dateOfBirth);
+    const today = new Date();
+    let age = today.getFullYear() - dob.getFullYear();
+    const monthDiff = today.getMonth() - dob.getMonth();
+    const dayDiff = today.getDate() - dob.getDate();
+  
+    console.log('DOB:', dob);
+    console.log('Today:', today);
+    console.log('Age:', age);
+    console.log('Month Diff:', monthDiff);
+    console.log('Day Diff:', dayDiff);
+  
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+      age--;
+    }
+  
+    return age;
+  };
+  
+
   const DropDown1 = !used
     ? [
         {
@@ -432,16 +453,15 @@ export function PatientTable({ functions, used }) {
             <td className={tdClass}>{index + 1}</td>
             <td className={tdClass}>
               <div className="flex gap-4 items-center">
-                {
-                  !used && (
-                    <span className="w-12">
-                      <img 
+                {!used && (
+                  <span className="w-12">
+                    <img 
                       src={patient.imageUrl} 
                       alt={patient.title}
                       className="w-full h-12 rounded-full object-cover border border-border"
-                      />
-                    </span>
-                  )}
+                    />
+                  </span>
+                )}
 
                 <div>
                   <h4 className="text-sm font-medium">{patient.fullName}</h4>
@@ -464,7 +484,7 @@ export function PatientTable({ functions, used }) {
             {!used && (
               <>
                 <td className={tdClass}>{patient.blood}</td>
-                <td className={tdClass}>{patient.age}</td>
+                <td className={tdClass}>{calculateAge(patient.dateOfBirth)}</td>
               </>
             )}
             <td className={tdClass}>
