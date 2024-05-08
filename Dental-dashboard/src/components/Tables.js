@@ -355,7 +355,7 @@ export function ServiceTable({ data, onEdit }) {
 // }
 
 // //patient table
-export function PatientTable({ functions, used }) {
+export function PatientTable({ functions }) {
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
@@ -374,55 +374,24 @@ export function PatientTable({ functions, used }) {
     };
 
     fetchPatients();
-  }, []);
+  }, []);  
 
-  const calculateAge = (dateOfBirth) => {
-    const dob = new Date(dateOfBirth);
-    const today = new Date();
-    let age = today.getFullYear() - dob.getFullYear();
-    const monthDiff = today.getMonth() - dob.getMonth();
-    const dayDiff = today.getDate() - dob.getDate();
-  
-    console.log('DOB:', dob);
-    console.log('Today:', today);
-    console.log('Age:', age);
-    console.log('Month Diff:', monthDiff);
-    console.log('Day Diff:', dayDiff);
-  
-    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
-      age--;
-    }
-  
-    return age;
-  };
-  
-
-  const DropDown1 = !used
-    ? [
-        {
-          title: 'View',
-          icon: FiEye,
-          onClick: (id) => {
-            functions.preview(id);
-          },
-        },
-        {
-          title: 'Delete',
-          icon: RiDeleteBin6Line,
-          onClick: () => {
-            toast.error('This feature is not available yet');
-          },
-        },
-      ]
-    : [
-        {
-          title: 'View',
-          icon: FiEye,
-          onClick: (id) => {
-            functions.preview(id);
-          },
-        },
-      ];
+  const DropDown1 = [
+    {
+      title: 'View',
+      icon: FiEye,
+      onClick: (id) => {
+        functions.preview(id);
+      },
+    },
+    {
+      title: 'Delete',
+      icon: RiDeleteBin6Line,
+      onClick: () => {
+        toast.error('This feature is not available yet');
+      },
+    },
+  ];
 
   const thClass = 'text-start text-sm font-medium py-3 px-2 whitespace-nowrap';
   const tdClass = 'text-start text-xs py-4 px-2 whitespace-nowrap';
@@ -433,14 +402,7 @@ export function PatientTable({ functions, used }) {
         <tr>
           <th className={thClass}>#</th>
           <th className={thClass}>Patient</th>
-          <th className={thClass}>Created At</th>
           <th className={thClass}>Gender</th>
-          {!used && (
-            <>
-              <th className={thClass}>Blood Group</th>
-              <th className={thClass}>Age</th>
-            </>
-          )}
           <th className={thClass}>Actions</th>
         </tr>
       </thead>
@@ -453,23 +415,19 @@ export function PatientTable({ functions, used }) {
             <td className={tdClass}>{index + 1}</td>
             <td className={tdClass}>
               <div className="flex gap-4 items-center">
-                {!used && (
                   <span className="w-12">
                     <img 
-                      src={patient.imageUrl} 
+                      src={patient.imageUrl || 'http://placehold.it/50x50'} 
                       alt={patient.title}
                       className="w-full h-12 rounded-full object-cover border border-border"
                     />
                   </span>
-                )}
-
                 <div>
                   <h4 className="text-sm font-medium">{patient.fullName}</h4>
                   <p className="text-xs mt-1 text-textGray">{patient.phoneNumber}</p>
                 </div>
               </div>
             </td>
-            <td className={tdClass}>{patient.date}</td>
             <td className={tdClass}>
               <span
                 className={`py-1 px-4 ${
@@ -481,16 +439,12 @@ export function PatientTable({ functions, used }) {
                 {patient.gender}
               </span>
             </td>
-            {!used && (
-              <>
-                <td className={tdClass}>{patient.blood}</td>
-                <td className={tdClass}>{calculateAge(patient.dateOfBirth)}</td>
-              </>
-            )}
             <td className={tdClass}>
-              <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
-                <BiDotsHorizontalRounded />
-              </div>
+              <MenuSelect datas={DropDown1} patient={patient}>
+                <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
+                  <BiDotsHorizontalRounded />
+                </div>
+              </MenuSelect> 
             </td>
           </tr>
         ))}
@@ -538,13 +492,15 @@ export function DoctorsTable({ functions }) {
     },
   ];
 
+  const thclass = 'text-start text-sm font-medium py-3 px-2 whitespace-nowrap';
+  const tdclass = 'text-start text-xs py-4 px-2 whitespace-nowrap';
+
   return (
     <table className="table-auto w-full">
       <thead className="bg-dry rounded-md overflow-hidden">
         <tr>
           <th className={thclass}>#</th>
           <th className={thclass}>Doctor</th>
-          <th className={thclass}>Date Created</th>
           <th className={thclass}>Phone</th>
           <th className={thclass}>Title</th>
           <th className={thclass}>Email</th>
@@ -570,7 +526,6 @@ export function DoctorsTable({ functions }) {
                 <h4 className="text-sm font-medium">{item.fullName}</h4>
               </div>
             </td>
-            <td className={tdclass}>{item.dateCreated}</td>
             <td className={tdclass}>
               <p className="text-textGray">{item.phoneNumber}</p>
             </td>
