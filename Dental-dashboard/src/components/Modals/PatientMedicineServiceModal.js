@@ -11,7 +11,6 @@ function PatientMedicineServiceModal({ closeModal, isOpen, patient }) {
   const [services, setServices] = useState([]);
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
 
-
   useEffect(() => {
     const fetchServices = async () => {
       try {
@@ -30,6 +29,12 @@ function PatientMedicineServiceModal({ closeModal, isOpen, patient }) {
   const filteredServices = services.filter(service =>
     service.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // Function to handle selection of a service
+  const handleServiceSelection = (service, event) => {
+    event.stopPropagation(); // Stop event propagation to prevent modal from closing
+    setSelected(service); // Update selected state with the selected service
+  };
 
   return (
     <Modal
@@ -61,8 +66,9 @@ function PatientMedicineServiceModal({ closeModal, isOpen, patient }) {
                   className={({ active, checked }) =>
                     `
                     ${active ? 'border-subMain bg-subMain text-white' : ''}
-                    rounded-xl border-[1px] border-border p-4 group hover:bg-subMain hover:text-white`
+                    rounded-xl border-[1px] border-border p-4 group hover:bg-subMain hover:text-white cursor-pointer`
                   }
+                  onClick={event => handleServiceSelection(service, event)} // Call handleServiceSelection on click
                 >
                   {({ active, checked }) => (
                     <h6 className="text-sm">{service}</h6>
@@ -72,8 +78,9 @@ function PatientMedicineServiceModal({ closeModal, isOpen, patient }) {
             </div>
           </RadioGroup>
         </div>
-        {/* button */}
-        <Button onClick={closeModal} label="Add" Icon={BiPlus} />
+        {/* button */} 
+       <Button onClick={closeModal} label="Add" Icon={BiPlus} 
+       />
       </div>
     </Modal>
   );
