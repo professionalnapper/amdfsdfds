@@ -21,7 +21,7 @@ function DoctorProfile() {
   const tabPanel = () => {
     switch (activeTab) {
       case 1:
-        return <PersonalInfo doctor={doctor} />; // Pass doctor to PersonalInfo component
+        return <PersonalInfo doctor={doctor} hideInsuranceUpload={true}/>; // Pass doctor to PersonalInfo component
       case 2:
         return <PatientsUsed doctor={doctor} />;
       case 3:
