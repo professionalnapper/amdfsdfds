@@ -18,7 +18,7 @@ function Doctors() {
   };
 
   const preview = (data) => {
-    navigate(`/doctors/preview/${data.id}`);
+    navigate(`/doctors/preview/${data.id}`, { state: { doctor: data } });
   };
 
   return (
@@ -51,7 +51,6 @@ function Doctors() {
         className="bg-white my-8 rounded-xl border-[1px] border-border p-5"
       >
         {/* datas */}
-
         <div className="grid md:grid-cols-6 sm:grid-cols-2 grid-cols-1 gap-2">
           <div className="md:col-span-5 grid lg:grid-cols-4 items-center gap-6">
             <input
@@ -60,7 +59,6 @@ function Doctors() {
               className="h-14 w-full text-sm text-main rounded-md bg-dry border border-border px-4"
             />
           </div>
-
           {/* export */}
           <Button
             label="Export"
