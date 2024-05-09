@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '../../Layout';
 import PersonalInfo from '../../components/UsedComp/PersonalInfo';
 import ChangePassword from '../../components/UsedComp/ChangePassword';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom'; // Added useLocation
 import { IoArrowBackOutline } from 'react-icons/io5';
 import PatientsUsed from '../../components/UsedComp/PatientsUsed';
 import AppointmentsUsed from '../../components/UsedComp/AppointmentsUsed';
@@ -12,25 +12,28 @@ import InvoiceUsed from '../../components/UsedComp/InvoiceUsed';
 import Access from '../../components/Access';
 
 function DoctorProfile() {
+  const location = useLocation(); // Access location
+  const doctor = location.state.doctor; // Extract doctor from location state
+
   const [activeTab, setActiveTab] = React.useState(1);
   const [access, setAccess] = React.useState({});
 
   const tabPanel = () => {
     switch (activeTab) {
       case 1:
-        return <PersonalInfo titles={true} hideInsuranceUpload={true} />
+        return <PersonalInfo doctor={doctor} />; // Pass doctor to PersonalInfo component
       case 2:
-        return <PatientsUsed />;
+        return <PatientsUsed doctor={doctor} />;
       case 3:
-        return <AppointmentsUsed doctor={true} />;
+        return <AppointmentsUsed doctor={doctor} />;
       case 4:
-        return <PaymentsUsed doctor={true} />;
+        return <PaymentsUsed doctor={doctor} />;
       case 5:
-        return <InvoiceUsed />;
+        return <InvoiceUsed doctor={doctor} />;
       case 6:
         return <Access setAccess={setAccess} />;
       case 7:
-        return <ChangePassword />;
+        return <ChangePassword doctor={doctor} />; // Pass doctor to ChangePassword component
       default:
         return;
     }
@@ -45,9 +48,9 @@ function DoctorProfile() {
         >
           <IoArrowBackOutline />
         </Link>
-        <h1 className="text-xl font-semibold">Dr. Kong</h1>
+        <h1 className="text-xl font-semibold">{doctor.fullName}</h1> {/* Display doctor's name */}
       </div>
-      <div className=" grid grid-cols-12 gap-6 my-8 items-start">
+      <div className="grid grid-cols-12 gap-6 my-8 items-start">
         <div
           data-aos="fade-right"
           data-aos-duration="1000"
@@ -56,14 +59,14 @@ function DoctorProfile() {
           className="col-span-12 flex-colo gap-6 lg:col-span-4 bg-white rounded-xl border-[1px] border-border p-6 lg:sticky top-28"
         >
           <img
-            src="/images/catto.jpg"
+            src={doctor.imageUrl} // Assuming you have an imageUrl property in your doctor's data
             alt="setting"
             className="w-40 h-40 rounded-full object-cover border border-dashed border-subMain"
           />
           <div className="gap-2 flex-colo">
-            <h2 className="text-sm font-semibold">Dr. Ricky</h2>
-            <p className="text-xs text-textGray">ricky@gmail.com</p>
-            <p className="text-xs">+254 712 345 678</p>
+            <h2 className="text-sm font-semibold">{doctor.fullName}</h2>
+            <p className="text-xs text-textGray">{doctor.email}</p>
+            <p className="text-xs">{doctor.phoneNumber}</p>
           </div>
           {/* tabs */}
           <div className="flex-colo gap-3 px-2 2xl:px-12 w-full">
@@ -72,12 +75,13 @@ function DoctorProfile() {
                 onClick={() => setActiveTab(tab.id)}
                 key={index}
                 className={`
-                ${
-                  activeTab === tab.id
-                    ? 'bg-text text-subMain'
-                    : 'bg-dry text-main hover:bg-text hover:text-subMain'
+                  ${
+                    activeTab === tab.id
+                      ? 'bg-text text-subMain'
+                      : 'bg-dry text-main hover:bg-text hover:text-subMain'
+                  }
+                  text-xs gap-4 flex items-center w-full p-4 rounded`
                 }
-                text-xs gap-4 flex items-center w-full p-4 rounded`}
               >
                 <tab.icon className="text-lg" /> {tab.title}
               </button>
