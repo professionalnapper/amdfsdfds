@@ -51,7 +51,13 @@ function PatientProfile() {
           data-aos-offset="200"
           className="col-span-12 flex-colo gap-6 lg:col-span-4 bg-white rounded-xl border-[1px] border-border p-6 lg:sticky top-28"
         >
-          {/* Removed the image and its related JSX */}
+          {/* Profile picture */}
+          <img
+            src="/images/catto.jpg"
+            alt="setting"
+            className="w-40 h-40 rounded-full object-cover border border-dashed border-subMain"
+          />
+          {/* Personal info */}
           <div className="gap-2 flex-colo">
             <h2 className="text-sm font-semibold">yooo</h2>
             <p className="text-xs text-textGray">yooo@gmail.com</p>
@@ -60,7 +66,7 @@ function PatientProfile() {
           {/* tabs */}
           <div className="flex-colo gap-3 px-2 xl:px-12 w-full">
             {patientTab.map((tab, index) => (
-              // Removed the button and icon for PatientImages and DentalChart
+              // Excluding the buttons and icons for Images and DentalChart
               ![5, 6].includes(tab.id) && (
                 <button
                   onClick={() => setActiveTab(tab.id)}
