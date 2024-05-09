@@ -18,7 +18,7 @@ function DoctorProfile() {
   const tabPanel = () => {
     switch (activeTab) {
       case 1:
-        return <PersonalInfo titles={true} />;
+        return <PersonalInfo titles={true} hideInsuranceUpload={true} />
       case 2:
         return <PatientsUsed />;
       case 3:
