@@ -8,7 +8,6 @@ import AppointmentsUsed from '../../components/UsedComp/AppointmentsUsed';
 import InvoiceUsed from '../../components/UsedComp/InvoiceUsed';
 import PaymentsUsed from '../../components/UsedComp/PaymentUsed';
 import PersonalInfo from '../../components/UsedComp/PersonalInfo';
-import HealthInfomation from './HealthInfomation';
 
 function PatientProfile() {
   const [activeTab, setActiveTab] = React.useState(1);

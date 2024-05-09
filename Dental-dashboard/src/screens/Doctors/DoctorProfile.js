@@ -31,8 +31,6 @@ function DoctorProfile() {
       case 5:
         return <InvoiceUsed doctor={doctor} />;
       case 6:
-        return <Access setAccess={setAccess} />;
-      case 7:
         return <ChangePassword doctor={doctor} />; // Pass doctor to ChangePassword component
       default:
         return;

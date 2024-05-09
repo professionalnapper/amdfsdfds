@@ -1115,6 +1115,11 @@ export const doctorTab = [
     title: 'Invoices',
     icon: RiFileList3Line,
   },
+  {
+    id: 6,
+    title: 'Change Password',
+    icon: RiLockPasswordLine,
+  }
 ];
 
 export const medicalRecodData = [
