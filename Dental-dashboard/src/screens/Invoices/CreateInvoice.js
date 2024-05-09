@@ -107,6 +107,12 @@ function CreateInvoice() {
   const formatDateToWords = (date) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(date).toLocaleDateString(undefined, options);
+  };  
+
+  const handleServiceSelection = (selectedService) => {
+    // Assuming your service object has 'name' and 'price' fields
+    setNewItem(selectedService.name); // Update input field with selected service name
+    setNewItemAmount(selectedService.price); // Update input field with selected service price
   };
 
   return (
@@ -156,10 +162,12 @@ function CreateInvoice() {
                 className="border border-gray-300 rounded-md px-3 py-2 w-full"
               />
               {itemOpen && (
-                <PatientMedicineServiceModal // Use PatientMedicineServiceModal
-                  closeModal={() => setItemOpen(false)}
-                  isOpen={itemOpen}
-                />
+                    <PatientMedicineServiceModal
+                    closeModal={() => setItemOpen(false)}
+                    isOpen={itemOpen}
+                    onSelectService={handleServiceSelection} // Pass the callback function
+                  />
+              
               )}
               <button
                 onClick={addItem}

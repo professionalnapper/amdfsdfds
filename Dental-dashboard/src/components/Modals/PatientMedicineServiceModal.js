@@ -6,7 +6,7 @@ import { Button } from '../Form';
 import { collection, getDocs } from 'firebase/firestore'; // Import Firestore functions
 import { db } from '../lib/firebase-config'; // Assuming you have a Firebase configuration file with a db export
 
-function PatientMedicineServiceModal({ closeModal, isOpen, patient }) {
+function PatientMedicineServiceModal({ closeModal, isOpen, patient, onSelectService }) {
   const [selected, setSelected] = useState(null); // Change default selection to null
   const [services, setServices] = useState([]);
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
@@ -15,7 +15,7 @@ function PatientMedicineServiceModal({ closeModal, isOpen, patient }) {
     const fetchServices = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, 'Services'));
-        const servicesList = querySnapshot.docs.map(doc => doc.data().name);
+        const servicesList = querySnapshot.docs.map(doc => doc.data());
         setServices(servicesList);
       } catch (error) {
         console.error('Error fetching services:', error);
@@ -27,8 +27,15 @@ function PatientMedicineServiceModal({ closeModal, isOpen, patient }) {
 
   // Filter services based on search query
   const filteredServices = services.filter(service =>
-    service.toLowerCase().includes(searchQuery.toLowerCase())
+    service.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const handleAddService = () => {
+    if (selected) {
+      onSelectService(selected);
+      closeModal(); // Close the modal after selecting a service
+    }
+  };
 
   // Function to handle selection of a service
   const handleServiceSelection = (service, event) => {
@@ -61,7 +68,7 @@ function PatientMedicineServiceModal({ closeModal, isOpen, patient }) {
             <div className="space-y-2">
               {filteredServices.map(service => (
                 <RadioGroup.Option
-                  key={service}
+                  key={service.name}
                   value={service}
                   className={({ active, checked }) =>
                     `
@@ -71,7 +78,7 @@ function PatientMedicineServiceModal({ closeModal, isOpen, patient }) {
                   onClick={event => handleServiceSelection(service, event)} // Call handleServiceSelection on click
                 >
                   {({ active, checked }) => (
-                    <h6 className="text-sm">{service}</h6>
+                    <h6 className="text-sm">{service.name}</h6>
                   )}
                 </RadioGroup.Option>
               ))}
@@ -79,8 +86,7 @@ function PatientMedicineServiceModal({ closeModal, isOpen, patient }) {
           </RadioGroup>
         </div>
         {/* button */} 
-       <Button onClick={closeModal} label="Add" Icon={BiPlus} 
-       />
+        <Button onClick={handleAddService} label="Add" Icon={BiPlus} />
       </div>
     </Modal>
   );
