@@ -40,7 +40,7 @@ function PatientMedicineServiceModal({ closeModal, isOpen, patient }) {
     <Modal
       closeModal={closeModal}
       isOpen={isOpen}
-      title={patient ? 'Patients' : 'Services'}
+      title={patient ? 'Services' : 'Services'}
       width={'max-w-xl'}
     >
       <div className="flex-colo gap-6">
