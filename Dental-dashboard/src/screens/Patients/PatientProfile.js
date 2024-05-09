@@ -8,9 +8,7 @@ import AppointmentsUsed from '../../components/UsedComp/AppointmentsUsed';
 import InvoiceUsed from '../../components/UsedComp/InvoiceUsed';
 import PaymentsUsed from '../../components/UsedComp/PaymentUsed';
 import PersonalInfo from '../../components/UsedComp/PersonalInfo';
-import PatientImages from './PatientImages';
 import HealthInfomation from './HealthInfomation';
-import DentalChart from './DentalChart';
 
 function PatientProfile() {
   const [activeTab, setActiveTab] = React.useState(1);
@@ -26,15 +24,11 @@ function PatientProfile() {
       case 4:
         return <PaymentsUsed doctor={false} />;
       case 5:
-        return <PatientImages />;
-      case 6:
-        return <DentalChart />;
-      case 7:
         return <PersonalInfo titles={false} />;
-      case 8:
+      case 6:
         return <HealthInfomation />;
       default:
-        return;
+        return null;
     }
   };
 
@@ -57,11 +51,7 @@ function PatientProfile() {
           data-aos-offset="200"
           className="col-span-12 flex-colo gap-6 lg:col-span-4 bg-white rounded-xl border-[1px] border-border p-6 lg:sticky top-28"
         >
-          <img
-            src="/images/catto.jpg"
-            alt="setting"
-            className="w-40 h-40 rounded-full object-cover border border-dashed border-subMain"
-          />
+          {/* Removed the image and its related JSX */}
           <div className="gap-2 flex-colo">
             <h2 className="text-sm font-semibold">yooo</h2>
             <p className="text-xs text-textGray">yooo@gmail.com</p>
@@ -70,19 +60,22 @@ function PatientProfile() {
           {/* tabs */}
           <div className="flex-colo gap-3 px-2 xl:px-12 w-full">
             {patientTab.map((tab, index) => (
-              <button
-                onClick={() => setActiveTab(tab.id)}
-                key={index}
-                className={`
-                ${
-                  activeTab === tab.id
-                    ? 'bg-text text-subMain'
-                    : 'bg-dry text-main hover:bg-text hover:text-subMain'
-                }
-                text-xs gap-4 flex items-center w-full p-4 rounded`}
-              >
-                <tab.icon className="text-lg" /> {tab.title}
-              </button>
+              // Removed the button and icon for PatientImages and DentalChart
+              ![5, 6].includes(tab.id) && (
+                <button
+                  onClick={() => setActiveTab(tab.id)}
+                  key={index}
+                  className={`
+                  ${
+                    activeTab === tab.id
+                      ? 'bg-text text-subMain'
+                      : 'bg-dry text-main hover:bg-text hover:text-subMain'
+                  }
+                  text-xs gap-4 flex items-center w-full p-4 rounded`}
+                >
+                  <tab.icon className="text-lg" /> {tab.title}
+                </button>
+              )
             ))}
           </div>
         </div>
