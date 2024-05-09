@@ -1084,23 +1084,8 @@ export const patientTab = [
   },
   {
     id: 5,
-    title: 'Images',
-    icon: RiImageLine,
-  },
-  {
-    id: 6,
-    title: 'Dental Chart',
-    icon: RiStethoscopeLine,
-  },
-  {
-    id: 7,
     title: 'Patient Information',
     icon: RiUserLine,
-  },
-  {
-    id: 8,
-    title: 'Health Information',
-    icon: RiHeartLine,
   },
 ];
 
@@ -1132,14 +1117,9 @@ export const doctorTab = [
   },
   {
     id: 6,
-    title: 'Access Control',
-    icon: TbLockAccess,
-  },
-  {
-    id: 7,
     title: 'Change Password',
     icon: RiLockPasswordLine,
-  },
+  }
 ];
 
 export const medicalRecodData = [

@@ -8,9 +8,6 @@ import AppointmentsUsed from '../../components/UsedComp/AppointmentsUsed';
 import InvoiceUsed from '../../components/UsedComp/InvoiceUsed';
 import PaymentsUsed from '../../components/UsedComp/PaymentUsed';
 import PersonalInfo from '../../components/UsedComp/PersonalInfo';
-import PatientImages from './PatientImages';
-import HealthInfomation from './HealthInfomation';
-import DentalChart from './DentalChart';
 
 function PatientProfile() {
   const [activeTab, setActiveTab] = React.useState(1);
@@ -26,15 +23,9 @@ function PatientProfile() {
       case 4:
         return <PaymentsUsed doctor={false} />;
       case 5:
-        return <PatientImages />;
-      case 6:
-        return <DentalChart />;
-      case 7:
         return <PersonalInfo titles={false} />;
-      case 8:
-        return <HealthInfomation />;
       default:
-        return;
+        return null;
     }
   };
 
@@ -70,19 +61,21 @@ function PatientProfile() {
           {/* tabs */}
           <div className="flex-colo gap-3 px-2 xl:px-12 w-full">
             {patientTab.map((tab, index) => (
-              <button
-                onClick={() => setActiveTab(tab.id)}
-                key={index}
-                className={`
-                ${
-                  activeTab === tab.id
-                    ? 'bg-text text-subMain'
-                    : 'bg-dry text-main hover:bg-text hover:text-subMain'
-                }
-                text-xs gap-4 flex items-center w-full p-4 rounded`}
-              >
-                <tab.icon className="text-lg" /> {tab.title}
-              </button>
+              ![6, 7, 8].includes(tab.id) && (
+                <button
+                  onClick={() => setActiveTab(tab.id)}
+                  key={index}
+                  className={`
+                  ${
+                    activeTab === tab.id
+                      ? 'bg-text text-subMain'
+                      : 'bg-dry text-main hover:bg-text hover:text-subMain'
+                  }
+                  text-xs gap-4 flex items-center w-full p-4 rounded`}
+                >
+                  <tab.icon className="text-lg" /> {tab.title}
+                </button>
+              )
             ))}
           </div>
         </div>
