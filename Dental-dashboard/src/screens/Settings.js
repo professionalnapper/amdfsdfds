@@ -50,7 +50,7 @@ function Settings() {
           <div className="gap-2 flex-colo">
             <h2 className="text-sm font-semibold">Receptionist</h2>
             <p className="text-xs text-textGray">reception@gmail.com</p>
-            <p className="text-xs">0912 354 5698</p>
+            <p className="text-xs">0977 192 2696</p>
           </div>
           {/* tabs */}
           <div className="flex-colo gap-3 px-2 xl:px-12 w-full">
