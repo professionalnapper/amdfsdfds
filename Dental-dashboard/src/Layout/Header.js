@@ -58,7 +58,7 @@ function Header() {
                     alt="user"
                     className="w-12 border border-border object-cover h-12 rounded-full"
                   />
-                  <p className="text-sm text-textGray font-medium">Dr. Catto</p>
+                  <p className="text-sm text-textGray font-medium">Receptionist</p>
                 </div>
               </MenuSelect>
             </div>
