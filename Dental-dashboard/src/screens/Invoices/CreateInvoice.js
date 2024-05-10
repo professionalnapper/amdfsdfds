@@ -50,7 +50,7 @@ function CreateInvoice() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [patientName, setPatientName] = useState('');
   const [invoiceId, setInvoiceId] = useState('');
-  const [currency, setCurrency] = useState('USD');
+  const [currency, setCurrency] = useState('Php');
   const [newItem, setNewItem] = useState('');
   const [newItemAmount, setNewItemAmount] = useState('');
   const [items, setItems] = useState([]);
