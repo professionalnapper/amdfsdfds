@@ -1,7 +1,6 @@
 import React from 'react';
 import Layout from '../../Layout';
 import PersonalInfo from '../../components/UsedComp/PersonalInfo';
-import ChangePassword from '../../components/UsedComp/ChangePassword';
 import { Link, useLocation } from 'react-router-dom'; // Added useLocation
 import { IoArrowBackOutline } from 'react-icons/io5';
 import PatientsUsed from '../../components/UsedComp/PatientsUsed';
@@ -30,8 +29,6 @@ function DoctorProfile() {
         return <PaymentsUsed doctor={doctor} />;
       case 5:
         return <InvoiceUsed doctor={doctor} />;
-      case 6:
-        return <ChangePassword doctor={doctor} />; // Pass doctor to ChangePassword component
       default:
         return;
     }
@@ -69,20 +66,23 @@ function DoctorProfile() {
           {/* tabs */}
           <div className="flex-colo gap-3 px-2 2xl:px-12 w-full">
             {doctorTab.map((tab, index) => (
-              <button
-                onClick={() => setActiveTab(tab.id)}
-                key={index}
-                className={`
-                  ${
-                    activeTab === tab.id
-                      ? 'bg-text text-subMain'
-                      : 'bg-dry text-main hover:bg-text hover:text-subMain'
+              // Excluding the Change Password button (id: 6)
+              tab.id !== 6 && (
+                <button
+                  onClick={() => setActiveTab(tab.id)}
+                  key={index}
+                  className={`
+                    ${
+                      activeTab === tab.id
+                        ? 'bg-text text-subMain'
+                        : 'bg-dry text-main hover:bg-text hover:text-subMain'
+                    }
+                    text-xs gap-4 flex items-center w-full p-4 rounded`
                   }
-                  text-xs gap-4 flex items-center w-full p-4 rounded`
-                }
-              >
-                <tab.icon className="text-lg" /> {tab.title}
-              </button>
+                >
+                  <tab.icon className="text-lg" /> {tab.title}
+                </button>
+              )
             ))}
           </div>
         </div>
