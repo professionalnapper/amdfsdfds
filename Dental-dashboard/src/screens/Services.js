@@ -1,14 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdOutlineCloudDownload } from 'react-icons/md';
 import { toast } from 'react-hot-toast';
 import { BiPlus } from 'react-icons/bi';
 import Layout from '../Layout';
-import { servicesData } from '../components/Datas';
 import AddEditServiceModal from '../components/Modals/AddEditServiceModal';
+import { db } from '../lib/firebase-config'; 
+import { collection, getDocs } from 'firebase/firestore'; // Import Firestore functions
+
+
 
 function Services() {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [data, setData] = React.useState({});
+  const [isOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState({});
+  const [servicesData, setServicesData] = useState([]);
+
+  useEffect(() => {
+    const fetchServicesData = async () => {
+      try {
+        const servicesRef = await getDocs(collection(db, 'Services'));
+        const data = servicesRef.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setServicesData(data);
+      } catch (error) {
+        console.error('Error fetching services:', error);
+      }
+    };
+
+    fetchServicesData();
+  }, []);
 
   const onCloseModal = () => {
     setIsOpen(false);
@@ -21,14 +39,7 @@ function Services() {
   };
 
   const addNewService = (newService) => {
-    const index = servicesData.findIndex(service => service.id === newService.id);
-    if (index !== -1) {
-      servicesData[index] = newService;
-      toast.success('Service updated successfully');
-    } else {
-      servicesData.push(newService);
-      toast.success('New service added successfully');
-    }
+    // Here you can implement adding/updating data to Firebase if needed
     onCloseModal();
   };
 
