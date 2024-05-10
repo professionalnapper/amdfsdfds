@@ -48,8 +48,8 @@ function Settings() {
             className="w-40 h-40 rounded-full object-cover border border-dashed border-subMain"
           />
           <div className="gap-2 flex-colo">
-            <h2 className="text-sm font-semibold">Dr. Milk Vosbein</h2>
-            <p className="text-xs text-textGray">milk.vosbein@gmail.com</p>
+            <h2 className="text-sm font-semibold">Ms. Receptionist</h2>
+            <p className="text-xs text-textGray">reception@gmail.com</p>
             <p className="text-xs">0912 354 5698</p>
           </div>
           {/* tabs */}
