@@ -7,6 +7,7 @@ import { BsSend } from 'react-icons/bs';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import { RiDeleteBinLine } from 'react-icons/ri'; 
 import { Link } from 'react-router-dom';
+import { db, collection, addDoc } from '../../lib/firebase-config';
 import PatientMedicineServiceModal from '../../components/Modals/PatientMedicineServiceModal'; // Import PatientMedicineServiceModal
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -54,6 +55,7 @@ function CreateInvoice() {
   const [newItemAmount, setNewItemAmount] = useState('');
   const [items, setItems] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [serviceName, setServiceName] = useState('');
   const [paidAmount, setPaidAmount] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [itemOpen, setItemOpen] = useState(false);
@@ -63,7 +65,7 @@ function CreateInvoice() {
   }, []);
 
   function generateInvoiceId() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const chars = '0123456789';
     let id = '';
     for (let i = 0; i < 6; i++) {
       id += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -113,6 +115,38 @@ function CreateInvoice() {
     // Assuming your service object has 'name' and 'price' fields
     setNewItem(selectedService.name); // Update input field with selected service name
     setNewItemAmount(selectedService.price); // Update input field with selected service price
+    setTotalAmount(totalAmount + parseFloat(selectedService.price));
+    setServiceName(selectedService.name)
+  };
+
+  const saveInvoiceToFirebase = async () => {
+    try {
+      // Add a new document with the invoice data to the "Invoices" collection
+      await addDoc(collection(db, "Invoices"), {
+        invoiceID: generateInvoiceId(),
+        patientName,
+        serviceName, // Assuming you want to concatenate all service names
+        totalAmount,
+        paidAmount,
+        changeAmount: calculateChange() // Assuming you have a function to calculate changeAmount
+      });
+      // Show success message
+      toast.success('Invoice saved successfully!');
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      // Handle error
+      toast.error('Failed to save invoice. Please try again.');
+    }
+  };
+
+  // Function to handle clicking the "Save" button
+  const handleSave = () => {
+    saveInvoiceToFirebase(); // Save invoice data to Firebase
+    // Clear input fields
+    setPatientName('');
+    setItems([]);
+    setTotalAmount(0);
+    setPaidAmount('');
   };
 
   return (
@@ -145,7 +179,7 @@ function CreateInvoice() {
               data={items}
               functions={{ deleteItem }}
               button={true}
-            />
+            /> 
             <div className="flex gap-2 mt-4">
               <input
                 type="text"
@@ -167,7 +201,6 @@ function CreateInvoice() {
                     isOpen={itemOpen}
                     onSelectService={handleServiceSelection} // Pass the callback function
                   />
-              
               )}
               <button
                 onClick={addItem}
@@ -201,7 +234,7 @@ function CreateInvoice() {
               </h6>
             </div>
             <Button
-              label="Save & Print Invoice"
+              label="Print Invoice"
               onClick={() => {
                 const invoiceWindow = window.open('', '_blank');
                 invoiceWindow.document.write('<html><head><title>Invoice</title>');
@@ -211,9 +244,7 @@ function CreateInvoice() {
                 invoiceWindow.document.write('<h4 style="text-align:center;">Patient Name: ' + patientName + '</h4>');
                 invoiceWindow.document.write('<h4 style="text-align:center;">Date: ' + formatDateToWords(selectedDate) + '</h4>');
                 invoiceWindow.document.write('<table style="width:100%;"><tr><th style="text-align:left;">Item</th><th style="text-align:right;">Amount</th></tr>');
-                items.forEach(item => {
-                  invoiceWindow.document.write('<tr><td>' + item.name + '</td><td style="text-align:right;">Php ' + item.amount.toFixed(2) + '</td></tr>');
-                });
+                invoiceWindow.document.write('<tr><td>' + serviceName + '</td><td style="text-align:right;">Php ' + totalAmount +'</td></tr>');
                 invoiceWindow.document.write('<tr><td style="text-align:right; padding-top:20px;">Total Amount:</td><td style="text-align:right; padding-top:20px;">Php ' + totalAmount.toFixed(2) + '</td></tr>');
                 invoiceWindow.document.write('<tr><td style="text-align:right;">Paid:</td><td style="text-align:right;">Php ' + paidAmount + '</td></tr>');
                 invoiceWindow.document.write('<tr><td style="text-align:right;">Change:</td><td style="text-align:right;">' + calculateChange() + '</td></tr>');
@@ -227,6 +258,10 @@ function CreateInvoice() {
           </div>
         </div>
       </div>
+      <Button
+      label = "Save"
+      onClick = {handleSave}
+      />
     </Layout>
   );
 }
